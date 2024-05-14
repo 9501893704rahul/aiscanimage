@@ -9,8 +9,7 @@
   <body>
     <div class="container">
       <h1 class="mt-5">Entity Recognition Results</h1>
-      <button id="mergeButton" class="btn btn-primary mt-3">Merge by Category</button>
-      <table id="resultsTable" class="table table-bordered mt-3">
+      <table class="table table-bordered mt-3">
         <thead>
           <tr>
             <th>Text</th>
@@ -34,42 +33,5 @@
       </table>
       <a href="/" class="btn btn-primary mt-3">Go Back</a>
     </div>
-    <script>
-      // JavaScript to merge rows by category
-      document.getElementById('mergeButton').addEventListener('click', function() {
-        let table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
-        let rows = Array.from(table.rows);
-
-        let mergedResults = {};
-        
-        rows.forEach(row => {
-          let category = row.cells[2].innerText;
-          if (!mergedResults[category]) {
-            mergedResults[category] = [];
-          }
-          mergedResults[category].push({
-            text: row.cells[0].innerText,
-            entity: row.cells[1].innerText,
-            confidence_score: row.cells[3].innerText
-          });
-        });
-
-        // Clear the table
-        table.innerHTML = '';
-
-        // Add merged rows to the table
-        for (let category in mergedResults) {
-          let mergedTexts = mergedResults[category].map(item => item.text).join(', ');
-          let mergedEntities = mergedResults[category].map(item => item.entity).join(', ');
-          let avgConfidence = (mergedResults[category].reduce((sum, item) => sum + parseFloat(item.confidence_score), 0) / mergedResults[category].length).toFixed(2);
-
-          let newRow = table.insertRow();
-          newRow.insertCell(0).innerText = mergedTexts;
-          newRow.insertCell(1).innerText = mergedEntities;
-          newRow.insertCell(2).innerText = category;
-          newRow.insertCell(3).innerText = avgConfidence;
-        }
-      });
-    </script>
   </body>
 </html>
