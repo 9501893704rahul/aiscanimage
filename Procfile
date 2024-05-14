@@ -1,1 +1,1 @@
-web: sh startup.sh
+web: gunicorn app:app
