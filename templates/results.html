@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -19,18 +20,6 @@
         </thead>
         <tbody>
           {% for result in entity_results %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
-</head>
-<body>
-    <h1>Extracted Entities</h1>
-    <ul>
-    {% for result in entity_results %}
-        <li>
-            <p><strong>Text:</strong> {{ result.text }}</p>
-            <ul>
             {% for entity in result.entities %}
               <tr>
                 <td>{{ result.text }}</td>
@@ -38,7 +27,6 @@
                 <td>{{ entity.category }}</td>
                 <td>{{ entity.confidence_score }}</td>
               </tr>
-                <li>{{ entity.text }} ({{ entity.category }}, confidence: {{ entity.confidence_score }})</li>
             {% endfor %}
           {% endfor %}
         </tbody>
@@ -46,10 +34,4 @@
       <a href="/" class="btn btn-primary mt-3">Go Back</a>
     </div>
   </body>
-            </ul>
-        </li>
-    {% endfor %}
-    </ul>
-    <a href="/">Go back</a>
-</body>
 </html>
