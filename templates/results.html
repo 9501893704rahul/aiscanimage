@@ -13,35 +13,19 @@
         <thead>
           <tr>
             <th>Text</th>
-            <th>Entities</th>
+            <th>Entity</th>
             <th>Category</th>
-            <th>Confidence Scores</th>
+            <th>Confidence Score</th>
           </tr>
         </thead>
         <tbody>
           {% for result in entity_results %}
-            {% set category_dict = {} %}
             {% for entity in result.entities %}
-              {% set category = entity.category %}
-              {% if category not in category_dict %}
-                {% set category_dict = category_dict.update({category: []}) %}
-              {% endif %}
-              {% set category_dict = category_dict.update({category: category_dict[category] + [(entity.text, entity.confidence_score)]}) %}
-            {% endfor %}
-            {% for category, entities in category_dict.items() %}
               <tr>
                 <td>{{ result.text }}</td>
-                <td>
-                  {% for entity in entities %}
-                    {{ entity[0] }}{% if not loop.last %}, {% endif %}
-                  {% endfor %}
-                </td>
-                <td>{{ category }}</td>
-                <td>
-                  {% for entity in entities %}
-                    {{ entity[1] }}{% if not loop.last %}, {% endif %}
-                  {% endfor %}
-                </td>
+                <td>{{ entity.text }}</td>
+                <td>{{ entity.category }}</td>
+                <td>{{ entity.confidence_score }}</td>
               </tr>
             {% endfor %}
           {% endfor %}
