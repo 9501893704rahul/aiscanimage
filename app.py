@@ -1,7 +1,7 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 import json
 import time
-import os
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.ai.textanalytics import TextAnalyticsClient
@@ -13,16 +13,17 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-# Azure Computer Vision setup
-subscription_key = 'bc993091c27748899bd018320d1cbf13'
-endpoint = 'https://scanim.cognitiveservices.azure.com/'
+# Read from environment variables
+subscription_key = os.getenv('AZURE_COMPUTER_VISION_SUBSCRIPTION_KEY')
+endpoint = os.getenv('AZURE_COMPUTER_VISION_ENDPOINT')
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
-# Azure Text Analytics setup
-text_analytics_subscription_key = 'e81506ab776342f9b77a06470c4be1b3'
-text_analytics_endpoint = 'https://textcl.cognitiveservices.azure.com/'
-text_analytics_client = TextAnalyticsClient(endpoint=text_analytics_endpoint,
-                                            credential=AzureKeyCredential(text_analytics_subscription_key))
+text_analytics_subscription_key = os.getenv('AZURE_TEXT_ANALYTICS_SUBSCRIPTION_KEY')
+text_analytics_endpoint = os.getenv('AZURE_TEXT_ANALYTICS_ENDPOINT')
+text_analytics_client = TextAnalyticsClient(endpoint=text_analytics_endpoint, credential=AzureKeyCredential(text_analytics_subscription_key))
+
+# Remaining code ...
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
