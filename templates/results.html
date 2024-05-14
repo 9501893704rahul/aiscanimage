@@ -12,22 +12,30 @@
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
-            <th>Text</th>
-            <th>Entity</th>
             <th>Category</th>
-            <th>Confidence Score</th>
+            <th>Entities</th>
+            <th>Confidence Scores</th>
           </tr>
         </thead>
         <tbody>
-          {% for result in entity_results %}
-            {% for entity in result.entities %}
-              <tr>
-                <td>{{ result.text }}</td>
-                <td>{{ entity.text }}</td>
-                <td>{{ entity.category }}</td>
-                <td>{{ entity.confidence_score }}</td>
-              </tr>
-            {% endfor %}
+          {% for category, entities in entity_results.items() %}
+            <tr>
+              <td>{{ category }}</td>
+              <td>
+                <ul>
+                  {% for entity in entities %}
+                    <li>{{ entity.text }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for entity in entities %}
+                    <li>{{ entity.confidence_score }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
           {% endfor %}
         </tbody>
       </table>
