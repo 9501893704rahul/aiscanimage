@@ -22,13 +22,9 @@ text_analytics_subscription_key = os.getenv('AZURE_TEXT_ANALYTICS_SUBSCRIPTION_K
 text_analytics_endpoint = os.getenv('AZURE_TEXT_ANALYTICS_ENDPOINT')
 text_analytics_client = TextAnalyticsClient(endpoint=text_analytics_endpoint, credential=AzureKeyCredential(text_analytics_subscription_key))
 
-# Remaining code ...
-
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-# Function to extract text from an image
 def extract_text_from_image(url):
     read_response = computervision_client.read(url, raw=True)
     operation_location = read_response.headers["Operation-Location"]
@@ -45,7 +41,6 @@ def extract_text_from_image(url):
     else:
         return []
 
-# Function to perform entity recognition
 def recognize_entities(texts):
     max_batch_size = 5
     results = []
@@ -64,9 +59,9 @@ def recognize_entities(texts):
 
                 doc_id = int(doc.id)
                 if doc_id >= i and doc_id < i + len(batch):
-                    actual_index = doc_id - i  # Adjust index to match the batch slice
+                    actual_index = doc_id - i
                     results.append({
-                        'text': batch[actual_index]['text'],  # Correctly access text with adjusted index
+                        'text': batch[actual_index]['text'],
                         'entities': [{'text': entity.text, 'category': entity.category, 'confidence_score': entity.confidence_score} for entity in doc.entities]
                     })
                 else:
@@ -123,4 +118,3 @@ if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
     app.run(debug=True, port=5001)
-
