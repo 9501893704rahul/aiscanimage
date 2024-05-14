@@ -1,6 +1,7 @@
-azure-ai-textanalytics
-Pillow
-Flask
+Flask==2.0.1
 azure-cognitiveservices-vision-computervision
 msrest
+azure-ai-textanalytics
 azure-core
+gunicorn
+Pillow
