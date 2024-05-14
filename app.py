@@ -85,6 +85,7 @@ def extract():
         if image_file and allowed_file(image_file.filename):
             filename = secure_filename(image_file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)  # Ensure the directory exists
             image_file.save(filepath)
 
             with open(filepath, 'rb') as img:
