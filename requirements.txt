@@ -1,4 +1,6 @@
+azure-ai-textanalytics
+Pillow
 Flask
-azure-cognitiveservices-vision-computervision==0.7.0
-azure-ai-textanalytics==5.1.0
-Pillow==8.4.0
+azure-cognitiveservices-vision-computervision
+msrest
+azure-core
