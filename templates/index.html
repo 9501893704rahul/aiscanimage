@@ -1,26 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Text Extraction and Entity Recognition</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="mt-5">Text Extraction and Entity Recognition</h1>
-      <form id="extract-form" class="mt-4" action="/extract" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="image-url">Image URL</label>
-          <input type="url" class="form-control" id="image-url" name="image_url">
-        </div>
-        <div class="form-group">
-          <label for="image-file">Upload Image</label>
-          <input type="file" class="form-control-file" id="image-file" name="image_file">
-        </div>
-        <button type="submit" class="btn btn-primary">Extract</button>
-      </form>
-    </div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+</head>
+<body>
+    <h1>Upload an image or provide an image URL</h1>
+    <form action="/extract" method="post" enctype="multipart/form-data">
+        <label for="image_file">Upload Image:</label>
+        <input type="file" name="image_file" id="image_file">
+        <br>
+        <label for="image_url">Image URL:</label>
+        <input type="url" name="image_url" id="image_url">
+        <br>
+        <button type="submit">Extract Text</button>
+    </form>
+</body>
 </html>
-
