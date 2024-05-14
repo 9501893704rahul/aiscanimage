@@ -43,7 +43,7 @@ def extract_text_from_image(url):
 
 def recognize_entities(texts):
     max_batch_size = 5
-    results = []
+    category_results = {}
 
     for i in range(0, len(texts), max_batch_size):
         batch = [{"id": str(i + j), "text": text} for j, text in enumerate(texts[i:i+max_batch_size]) if text.strip()]
@@ -57,19 +57,19 @@ def recognize_entities(texts):
                     print(f"Document error: {doc.error}")
                     continue
 
-                doc_id = int(doc.id)
-                if doc_id >= i and doc_id < i + len(batch):
-                    actual_index = doc_id - i
-                    results.append({
-                        'text': batch[actual_index]['text'],
-                        'entities': [{'text': entity.text, 'category': entity.category, 'confidence_score': entity.confidence_score} for entity in doc.entities]
+                for entity in doc.entities:
+                    category = entity.category
+                    if category not in category_results:
+                        category_results[category] = []
+                    category_results[category].append({
+                        'text': entity.text,
+                        'confidence_score': entity.confidence_score
                     })
-                else:
-                    print(f"Error: Document ID {doc_id} is out of range for the batch")
         except Exception as e:
             print(f"Error in entity recognition for batch starting at index {i}: {e}")
 
-    return results
+    return category_results
+
 
 @app.route('/')
 def index():
