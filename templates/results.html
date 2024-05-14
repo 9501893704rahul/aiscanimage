@@ -9,7 +9,8 @@
   <body>
     <div class="container">
       <h1 class="mt-5">Entity Recognition Results</h1>
-      <table class="table table-bordered mt-3">
+      <button id="sortButton" class="btn btn-primary mt-3">Sort by Category</button>
+      <table id="resultsTable" class="table table-bordered mt-3">
         <thead>
           <tr>
             <th>Text</th>
@@ -33,5 +34,21 @@
       </table>
       <a href="/" class="btn btn-primary mt-3">Go Back</a>
     </div>
+    <script>
+      // JavaScript to sort the table by category
+      document.getElementById('sortButton').addEventListener('click', function() {
+        let table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+        let rows = Array.from(table.rows);
+
+        rows.sort((a, b) => {
+          let categoryA = a.cells[2].innerText;
+          let categoryB = b.cells[2].innerText;
+          return categoryA.localeCompare(categoryB);
+        });
+
+        // Reattach sorted rows to the table body
+        rows.forEach(row => table.appendChild(row));
+      });
+    </script>
   </body>
 </html>
